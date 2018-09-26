@@ -7,7 +7,7 @@ Stickyfill - is a Magento2 module that integrates
 
 ```bash
 cd <magento_root>
-composer require swissup/stickyfill
+composer require swissup/module-stickyfill
 bin/magento module:enable Swissup_Stickyfill
 bin/magento setup:upgrade
 ```
