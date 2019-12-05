@@ -15,8 +15,15 @@ define([
      */
     function watch() {
         _.each(stickes, function (el) {
+            var boundingClientRectTop = Number(el.getBoundingClientRect().top);
+
+            // iOS fix
+            if (Math.abs(boundingClientRectTop) <= 1) {
+                boundingClientRectTop = 0;
+            }
+
             var top = parseInt($(el).css('top'), 10) || 0,
-                atTop = Number(el.getBoundingClientRect().top) === top,
+                atTop = boundingClientRectTop === top,
                 isStuck = $(el).hasClass(options.activeClassName);
 
             if (atTop && !isStuck) {
