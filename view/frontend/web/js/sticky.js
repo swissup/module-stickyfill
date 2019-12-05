@@ -8,7 +8,8 @@ define([
     var stickes = [],
         options = {
             activeClassName: 'sticky-active'
-        };
+        },
+        isIos = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 
     /**
      * Watch for all stickes and add sticky-active class when needed
@@ -18,7 +19,7 @@ define([
             var boundingClientRectTop = Number(el.getBoundingClientRect().top);
 
             // iOS fix
-            if (Math.abs(boundingClientRectTop) <= 1) {
+            if (isIos && Math.abs(boundingClientRectTop) <= 1) {
                 boundingClientRectTop = 0;
             }
 
