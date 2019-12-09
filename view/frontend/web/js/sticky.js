@@ -16,16 +16,16 @@ define([
      */
     function watch() {
         _.each(stickes, function (el) {
-            var boundingClientRectTop = Number(el.getBoundingClientRect().top);
-
-            // iOS fix
-            if (isIos && Math.abs(boundingClientRectTop) <= 1) {
-                boundingClientRectTop = 0;
-            }
-
             var top = parseInt($(el).css('top'), 10) || 0,
+                boundingClientRectTop = Number(el.getBoundingClientRect().top),
                 atTop = boundingClientRectTop === top,
                 isStuck = $(el).hasClass(options.activeClassName);
+
+            // iOS fix.
+            // @see https://openradar.appspot.com/radar?id=6668472289329152
+            if (isIos && !atTop) {
+                atTop = boundingClientRectTop - top <= 1;
+            }
 
             if (atTop && !isStuck) {
                 $(el).addClass(options.activeClassName);
