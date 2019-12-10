@@ -8,7 +8,8 @@ define([
     var stickes = [],
         options = {
             activeClassName: 'sticky-active'
-        };
+        },
+        isIos = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 
     /**
      * Watch for all stickes and add sticky-active class when needed
@@ -16,8 +17,15 @@ define([
     function watch() {
         _.each(stickes, function (el) {
             var top = parseInt($(el).css('top'), 10) || 0,
-                atTop = Number(el.getBoundingClientRect().top) === top,
+                boundingClientRectTop = Number(el.getBoundingClientRect().top),
+                atTop = boundingClientRectTop === top,
                 isStuck = $(el).hasClass(options.activeClassName);
+
+            // iOS fix.
+            // @see https://openradar.appspot.com/radar?id=6668472289329152
+            if (isIos && !atTop) {
+                atTop = boundingClientRectTop - top <= 1;
+            }
 
             if (atTop && !isStuck) {
                 $(el).addClass(options.activeClassName);
