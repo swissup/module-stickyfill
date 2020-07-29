@@ -540,7 +540,9 @@
     if (typeof module != 'undefined' && module.exports) {
         module.exports = Stickyfill;
     } else if (typeof define === 'function' && define.amd) {
-        define(Stickyfill);
+        define(function () {
+            return Stickyfill;
+        });
     } else if (isWindowDefined) {
         window.Stickyfill = Stickyfill;
     }
