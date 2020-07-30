@@ -2,7 +2,7 @@
     "name": "swissup/module-stickyfill",
     "description": "The most accurate sticky polyfill out in the wild for Magento 2",
     "type": "magento2-module",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "license": "MIT",
     "autoload": {
         "files": [
